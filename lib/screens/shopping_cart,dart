@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart';
+import 'product_list.dart'; 
+import 'cart_item.dart'; 
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'E-Commerce App',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const OnboardingScreen(), 
+        '/products': (context) => const ShoppingCartScreen(),
+      },
+    );
+  }
+}
+
+class ShoppingCartScreen extends StatefulWidget {
+  const ShoppingCartScreen({super.key});
+
+  @override
+  _ShoppingCartScreenState createState() => _ShoppingCartScreenState();
+}
+
+class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
+  final List<CartItem> cartItems = [];
+
+  // Method to add an item to the cart
+  void addToCart(CartItem item) {
+    setState(() {
+      cartItems.add(item); // Add the item to the cart
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ProductListScreen(
+      onAddToCart: addToCart, 
+      cartItemCount: cartItems.length, 
+    );
+  }
+}
